@@ -2,8 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
-import { LayoutComponent } from './layout.component';
 import { SharedMaterialModule } from '../shared/shared-material/shared-material.module';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { LayoutComponent } from './layout.component';
 
 const routes = [
   {
@@ -20,7 +21,8 @@ const routes = [
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
-    SharedMaterialModule
+    SharedMaterialModule,
+    FlexLayoutModule
   ]
 })
 export class LayoutModule { }
