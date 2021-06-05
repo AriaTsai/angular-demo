@@ -3,3 +3,4 @@
 - Angular Material
 - Angular FlexLayout
 - Lodash
+- Rxjs
