@@ -2,3 +2,4 @@
 
 - Angular Material
 - Angular FlexLayout
+- Lodash
