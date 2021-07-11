@@ -1,0 +1,20 @@
+
+<div fxLayout="row">
+
+  <div fxFlex="20%" fxLayout="column" class="box">
+    <!-- <h2>box1</h2> -->
+    <div class="content">textext</div>
+  </div>
+
+  <div fxFlex="80%" fxLayout="column" class="box">
+    <!-- <h2>box2</h2> -->
+    <div class="content">
+      <svg-tree
+        [linksData]="relationLinks"
+        [nodeListData]="nodeList"
+        [clustersData]="clusters">
+      </svg-tree>
+    </div>
+  </div>
+
+</div>

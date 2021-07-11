@@ -15,9 +15,9 @@ export class LayoutComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log('layout');
-    console.log(_.forEach(this.ary, (item) => { console.log(item); }));
-    this.counter();
+    // console.log('layout');
+    // console.log(_.forEach(this.ary, (item) => { console.log(item); }));
+    // this.counter();
   }
 
   counter(): void {

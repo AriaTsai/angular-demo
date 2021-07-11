@@ -1,0 +1,94 @@
+<ngx-graph
+  class="chart-container"
+  [links]="linksData"
+  [nodes]="nodeListData"
+  [clusters]="clustersData"
+  [curve]="curve"
+  layout="dagreCluster"
+  [nodeWidth]="100"
+  [nodeHeight]="50"
+  (select)="onNodeSelect($event)">
+
+  <!-- marker 箭頭 -->
+<ng-template #defsTemplate>
+  <svg:marker
+    id="arrow"
+    viewBox="0 -5 10 10"
+    refX="8" refY="0"
+    markerWidth="4"
+    markerHeight="4"
+    orient="auto">
+    <svg:path d="M0,-5L10,0L0,5" class="arrow-head" />
+  </svg:marker>
+</ng-template>
+
+<!-- cluster 區塊 -->
+<ng-template #clusterTemplate let-cluster>
+  <svg:g class="node cluster">
+    <svg:rect
+      rx="100"
+      ry="5"
+      [attr.width]="cluster.dimension.width"
+      [attr.height]="cluster.dimension.height"
+      [attr.fill]="cluster.data.color"
+    />
+  </svg:g>
+</ng-template>
+
+
+<!-- node 節點 -->
+<ng-template #nodeTemplate let-node>
+  <svg:g class="node">
+    <!-- outline -->
+    <svg:rect
+      [attr.width]="node.dimension.width"
+      [attr.height]="node.dimension.height"
+      [attr.stroke]="node.data.borderColor"
+      [attr.fill]="node.data.customColor || node.data.color"
+    />
+    <!-- number -->
+    <svg:circle
+      [attr.r]="20"
+      [attr.cx]="node.dimension.width / 4"
+      [attr.cy]="node.dimension.height / 2"
+      [attr.fill]="'green'"
+      [attr.stroke]="'#000000'"
+      [attr.stroke-width]="1"
+    />
+    <!-- text -->
+    <svg:text
+      alignment-baseline="central"
+      [attr.x]="node.dimension.width / 2"
+      [attr.y]="node.dimension.height / 2">
+      {{node.label}}
+    </svg:text>
+  </svg:g>
+</ng-template>
+
+<!-- Link 線 -->
+<ng-template #linkTemplate let-link>
+  <svg:g class="edge">
+    <!-- <svg:path
+      class="line"
+      stroke-width="1"
+      marker-end="url(#arrow)">
+    </svg:path> -->
+
+    <svg:path
+      class="line"
+      stroke-width="1">
+    </svg:path>
+
+    <svg:text class="edge-label" text-anchor="middle">
+      <textPath
+        class="text-path"
+        [attr.href]="'#' + link.id"
+        [style.dominant-baseline]="link.dominantBaseline"
+        startOffset="50%"
+      >
+        {{link.label}}
+      </textPath>
+    </svg:text>
+  </svg:g>
+</ng-template>
+</ngx-graph>

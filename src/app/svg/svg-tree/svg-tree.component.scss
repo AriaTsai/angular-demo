@@ -1,0 +1,15 @@
+
+ .linkMidpoint {
+  ellipse {
+    fill: white;
+    stroke: black;
+    stroke-width: 1;
+  }
+
+  text {
+    stroke: transparent;
+    fill: black;
+    text-anchor: middle;
+    font-size: 10px;
+  }
+}
