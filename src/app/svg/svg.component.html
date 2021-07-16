@@ -1,20 +1,53 @@
+  <div fxfill fxLayout="row" class="box">
 
-<div fxLayout="row">
+    <div fxFlex="20%">
+      <h2></h2>
+      <div class="block" fxLayout="column" fxLayoutGap="10px">
+        <div fxLayoutGap="10px">
+          <!-- <button mat-raised-button color="primary" (click)="centerHandler()">Center</button>
+          <button mat-raised-button color="primary" (click)="fitHandler()">zoom to Fit</button> -->
+        </div>
+        <div>
+          <!-- <button mat-raised-button color="primary" (click)="useOrgTemplate=!useOrgTemplate">toggle OrgTemplate</button> -->
+        </div>
+      </div>
+      <div class="block">
+        <h2>Pan to node</h2>
+        <ul>
+          <li (click)="target='1'"> <button mat-button> node A </button></li>
+          <li (click)="target='2'"> <button mat-button> node B </button></li>
+          <li (click)="target='3'"> <button mat-button> node C </button></li>
+          <li (click)="target='4'"> <button mat-button> node D </button></li>
+          <li (click)="target='5'"> <button mat-button> node E </button></li>
+          <li (click)="target='6'"> <button mat-button> node F </button></li>
+        </ul>
+      </div>
+    </div>
 
-  <div fxFlex="20%" fxLayout="column" class="box">
-    <!-- <h2>box1</h2> -->
-    <div class="content">textext</div>
-  </div>
+    <div fxFlex="80%">
+      <div class="flow-charts">
 
-  <div fxFlex="80%" fxLayout="column" class="box">
-    <!-- <h2>box2</h2> -->
-    <div class="content">
-      <svg-tree
-        [linksData]="relationLinks"
-        [nodeListData]="nodeList"
-        [clustersData]="clusters">
-      </svg-tree>
+
+<!-- tree -->
+      <app-svg-tree fxFill
+        [flowChartGraphConfig]="treeData"
+        [targetNode]="target"
+      >
+      </app-svg-tree>
+
+<!-- sign -->
+      <!-- <app-svg-tree fxFill
+        [flowChartGraphConfig]="signData"
+        >
+      </app-svg-tree> -->
+
+
     </div>
   </div>
+  </div>
 
-</div>
+<ng-template #node>
+  <div class="circle-outside">
+    <div class="circle-inside"></div>
+  </div>
+</ng-template>

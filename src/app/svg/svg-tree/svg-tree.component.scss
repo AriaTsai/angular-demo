@@ -1,15 +1,50 @@
+.container {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
 
- .linkMidpoint {
-  ellipse {
-    fill: white;
-    stroke: black;
-    stroke-width: 1;
-  }
+:host::ng-deep .ngx-charts {
+  border: 1px solid #6d6c6c;
 
-  text {
-    stroke: transparent;
-    fill: black;
-    text-anchor: middle;
-    font-size: 10px;
+  .panning-rect {
+    cursor: default;
   }
 }
+
+.block {
+  padding: 10px;
+}
+
+.node:hover {
+  .rect {
+    fill: #f7f7f7;
+  }
+}
+
+
+
+.node-label {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+    span:not(.org) {
+      text-align: center;
+      margin: 0 5px;
+    }
+    .ellipsis {
+      // 限制多行
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      white-space: normal;
+      word-break: break-all;
+    }
+}
+
+
+
