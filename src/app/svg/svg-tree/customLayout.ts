@@ -208,7 +208,8 @@ export class CustomLayout implements Layout {
       }
     }
 
-
+console.log(this.dagreNodes)
+console.log(this.dagreClusters)
     // update dagre
     for (const edge of this.dagreEdges) {
       if (settings.multigraph) {

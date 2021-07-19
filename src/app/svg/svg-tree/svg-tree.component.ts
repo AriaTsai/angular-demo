@@ -131,28 +131,31 @@ export class SvgTreeComponent implements OnInit {
         .text(`${cluster.label}`);
     });
 
-//     const header = selection.select<SVGSVGElement, unknown>('.header')
-//     const content = selection.select<SVGSVGElement, unknown>('.content')
+    // const header = selection.select<SVGSVGElement, unknown>('.header')
+    // const content = selection.select<SVGSVGElement, unknown>('.content')
 
-//     // let transform;
-//     const useZoom = zoom.zoom<SVGSVGElement, unknown>()
-//     .scaleExtent([1, 2]) // 縮放比例[最小值,最大值]
-//     .filter(s=> {
-//       console.log(s)
-//       return true;
-//     })
-//     .extent([[0, 0], [this.flowChartGraphConfig.viewPort[0], 50]])
-//     .on("zoom", e => {
-//       console.log(e)
-//       content.attr("transform", e.transform);
-//     });
 
-//     header
-//       .call(useZoom)
-//       .call(useZoom.transform, zoom.zoomIdentity)
-//       .node()
+    // const useZoom = zoom.zoom<SVGSVGElement, unknown>()
+    // .scaleExtent([1, 2]) // 縮放比例[最小值,最大值]
+    // .filter(s=> {
+    //   console.log(s)
+    //   return true;
+    // })
+    // .extent([[0, 0], [this.flowChartGraphConfig.viewPort[0], 50]])
+    // .on("zoom", e => {
+    //   console.log(e)
+    //   content.attr('transform', e.transform);
+    // });
 
-// console.log(useZoom);
+    // console.log(header);
+    // header
+    //   .call(useZoom)
+    //   .call(useZoom.transform, zoom.zoomIdentity)
+    //   .node()
+
+
+
+    // console.log(useZoom);
 
   }
 

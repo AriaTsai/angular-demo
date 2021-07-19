@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ClusterNode, DagreNodesOnlyLayout, Edge, Graph, Node } from '@swimlane/ngx-graph';
 import { Orientation } from './svg-tree/customLayout';
 import { clustersData, edgeData, nodeData, signClustersData, signLinksData, signNodesData } from './svg-tree/data';
-import { FlowChartGraphConfig, SvgTreeConfigBuilder } from './svg-tree/svg-tree-config-builder';
+import { FlowChartGraphConfig, SvgTreeConfigBuilder, Nodes } from './svg-tree/svg-tree-config-builder';
 
 @Component({
   selector: 'app-svg',
@@ -28,6 +28,20 @@ export class SvgComponent implements OnInit {
         icon: 'more_vert',
       };
     });
+
+    signNodesData.forEach(item => {
+      item.data = {
+        shape: 'circle',
+        color: '#a9a9a9',
+        width: 100,
+        height: 100,
+        borderColor: 'rgba(169, 169, 169, 0.5)',
+        borderWidth: 3,
+        borderRadious: 5
+      }
+    })
+
+
 
     this.treeData = new SvgTreeConfigBuilder()
       .setNodesData(nodeData).setLinksData(edgeData).setClustersData(clustersData)

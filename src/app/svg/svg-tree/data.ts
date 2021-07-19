@@ -1,4 +1,5 @@
 import { ClusterNode, Edge, Node } from '@swimlane/ngx-graph';
+import { Nodes } from './svg-tree-config-builder';
 
 
 // =====  tree  =====
@@ -193,6 +194,16 @@ export const clustersData: ClusterNode[] = [
     childNodeIds: ['15', '16', '17'],
     data: { clustersType: 'line', strokeColor: 'rgba(0,0,0,0.3)'  }
   },
+  {
+    id: 'cluster7',
+    label: 'Group 3',
+    childNodeIds: ['3', '4', '5'],
+    data: {
+      clustersType: 'group',
+      backgoundColor: '#ebf9ff',
+      target: '3'
+    }
+  },
 ];
 
 
@@ -222,7 +233,7 @@ export const signLinksData: Edge[] = [
 ];
 
 
-export const signNodesData: Node[] = [
+export const signNodesData: Nodes[] = [
   {
     id: '11',
     label: 'Step 1',

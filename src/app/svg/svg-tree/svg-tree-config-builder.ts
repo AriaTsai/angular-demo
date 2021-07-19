@@ -1,17 +1,18 @@
 import { Edge, Node, Layout, ClusterNode, PanningAxis, GraphComponent, Graph,
   DagreClusterLayout, DagreSettings, Orientation, Alignment } from '@swimlane/ngx-graph';
 
-export class NodeStyle {
+export interface NodeStyle {
     shape?: 'rect' | 'circle';
-    shapeFillColor?: string;
-    strokeWidth?: string;
-    strokeColor?: string;
-    defaultRectCircle?: NodeStyle;
-    icon?: string;
+    color?: string;
+    width?: number;
+    height?: number;
+    borderColor?: string;
+    borderWidth?: number;
+    borderRadious?: number;
 }
 
-export class Nodes extends Node {
-  data: NodeStyle;
+export interface Nodes extends Node {
+  data?: NodeStyle;
 }
 
 
