@@ -8,12 +8,14 @@ import { NgxGraphModule } from '@swimlane/ngx-graph';
 import { SvgComponent } from './svg.component';
 import { SvgTreeComponent } from './svg-tree/svg-tree.component';
 import { SharedCommonModule } from '../shared/shared-common/shared-common.module';
+import { SvgRectComponent } from './svg-tree/svg-rect/svg-rect.component';
 
 
 @NgModule({
   declarations: [
     SvgComponent,
-    SvgTreeComponent
+    SvgTreeComponent,
+    SvgRectComponent
   ],
   imports: [
     CommonModule,
