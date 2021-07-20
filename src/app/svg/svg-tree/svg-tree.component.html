@@ -24,34 +24,52 @@
       >
 
   <!-- defs 自定義 -->
-        <ng-template #defsTemplate>
+        <ng-template #defsTemplate >
           <!-- arrow -->
           <ng-container *ngIf="flowChartGraphConfig.useLinkArrow">
-            <svg:marker
+            <!-- <svg:marker
                 id="arrow"
                 viewBox="0 -5 10 10"
                 refX="8"
                 refY="0"
                 [attr.markerWidth]="flowChartGraphConfig.nodeWidth/3"
                 [attr.markerHeight]="flowChartGraphConfig.nodeWidth/3"
-                orient="auto">
-              <svg:path d="M0,-5L10,0L0,5" class="arrow-head" />
-            </svg:marker>
+                orient="auto-start-reverse">
+              <svg:path d="M0,-5L10,0L0,5" class="arrow-head"/>
+            </svg:marker> -->
+
+              <svg:marker
+                id="start-arrow" viewBox="0 0 10 10" refX="5" refY="5"
+                [attr.markerWidth]="flowChartGraphConfig.nodeWidth/3"
+                [attr.markerHeight]="flowChartGraphConfig.nodeWidth/3"
+                orient="270"
+              >
+                <path d="M 0 0 L 10 5 L 0 10 z" />
+              </svg:marker>
+
+              <svg:marker
+                id="end-arrow" viewBox="0 0 10 10" refX="5" refY="5"
+                [attr.markerWidth]="flowChartGraphConfig.nodeWidth/3"
+                [attr.markerHeight]="flowChartGraphConfig.nodeWidth/3"
+                orient="90"
+              >
+                <path d="M 0 0 L 10 5 L 0 10 z" />
+              </svg:marker>
+
           </ng-container>
-
-
         </ng-template>
 
-  <!-- cluster 區塊 -->
-
+<!-- cluster 區塊 -->
     <ng-template #clusterTemplate let-cluster>
       <ng-container *ngIf="cluster.data.clustersType !== 'line'">
         <svg:g>
           <svg:rect
             rx="5"
             ry="5"
-            [attr.width]="cluster.dimension.width"
-            [attr.height]="cluster.dimension.height"
+            [attr.x]="5"
+            [attr.y]="10"
+            [attr.width]="cluster.dimension.width-15"
+            [attr.height]="cluster.dimension.height-15"
             [attr.fill]="cluster.data.backgoundColor"
             stroke="rgba(0, 0, 0, 0.2)"
             stroke-width="0.7"
@@ -60,7 +78,7 @@
         </svg:g>
       </ng-container>
 
-      <ng-container *ngIf="flowChartGraphConfig.useOrgTemplate && cluster.data.clustersType == 'line'">
+      <ng-container *ngIf="cluster.data.clustersType == 'line'">
         <svg:g class="cluster" [attr.transform]="clusterLineTranslate">
           <svg:path
             d="M0 0 V10000"
@@ -69,172 +87,83 @@
           />
         </svg:g>
       </ng-container>
-<ng-template *ngTemplateOutlet=cluster.data.template contex:cluster></ng-template>
-</ng-template>
-
+    <ng-template *ngTemplateOutlet=cluster.data.template contex:cluster></ng-template>
+    </ng-template>
 
 <!-- node 節點 -->
-  <!-- 組織圖 -->
-      <ng-container *ngIf="flowChartGraphConfig.useOrgTemplate">
-            <ng-template #nodeTemplate let-node>
-              <svg:g class="node">
-              <!-- outline -->
-                <svg:rect
-                  class="rect"
-                  [attr.width]="node.dimension.width"
-                  [attr.height]="node.dimension.height"
-                  [attr.stroke]="node.data.borderColor"
-                  [attr.stroke-width]="node.data.borderWidth"
-                  [attr.fill]="node.data.customColor || node.data.color"
-                  [attr.rx]="5"
-                  [attr.ry]="5"
-                />
-              <!-- number -->
-
-                <svg:circle
-                  [attr.r]="17"
-                  [attr.cx]="node.dimension.width / 6"
-                  [attr.cy]="node.dimension.height / 2"
-                  [attr.fill]="node.data.circleColor||'#ffffff'"
-                  [attr.stroke-width]="1"
-                />
-                <svg:text
-                  [attr.x]="node.dimension.width / 6"
-                  [attr.y]="node.dimension.height / 2"
-                  [attr.fill]="'#0288d1'"
-                  font-size="14"
-                  text-anchor="middle"
-                  alignment-baseline="middle"
-                >{{node.id}}
-
-                </svg:text>
-
-              <!-- text -->
-                <foreignObject
-                  [attr.x]="node.dimension.width/3"
-                  [attr.y]="0"
-                  [attr.width]="84"
-                  [attr.height]="node.dimension.height"
-                >
-                  <div class="node-label">
-                    <span class="ellipsis org">{{node.label}}</span>
-                  </div>
-                </foreignObject>
-
-              <!-- icon -->
-                <foreignObject
-                  class="icon-more"
-                  [matMenuTriggerFor]="menu"
-                  [matMenuTriggerData]="{nodeId: node.id}"
-                  [attr.x]="140"
-                  [attr.y]="10"
-                  width="30px"
-                  height="30px"
-                >
-                <mat-icon>{{node.data.icon}}</mat-icon>
-              </foreignObject>
-            </svg:g>
-            </ng-template>
-      </ng-container>
-
-  <!-- 其他 -->
-      <ng-container *ngIf="!flowChartGraphConfig.useOrgTemplate">
-        <ng-template #nodeTemplate let-node [ngSwitch]="flowChartGraphConfig.nodeShape">
-          <ng-container [ngSwitch]="flowChartGraphConfig.nodeShape">
-            <ng-container *ngSwitchCase="'rect'">
-              <!-- <svg:rect
-                [attr.width]="node.dimension.width"
-                [attr.height]="node.dimension.height"
-                [attr.stroke]="node.data.borderColor"
-                [attr.stroke-width]="node.data.borderWidth"
-                [attr.fill]="node.data.customColor || node.data.color"
-                [attr.rx]="5"
-                [attr.ry]="5"
-              >
-              </svg:rect> -->
-            </ng-container>
-
-            <ng-container *ngSwitchDefault>
-              <svg:circle
-                [attr.r]="flowChartGraphConfig.nodeWidth/2"
-                [attr.cx]="node.dimension.width/2"
-                [attr.cy]="node.dimension.height/2"
-                [attr.stroke]="node.data.borderColor"
-                [attr.stroke-width]="node.data.borderWidth"
-                [attr.fill]="node.data.customColor || node.data.color"
-              >
-              </svg:circle>
-            </ng-container>
-
-
-            <!-- 文字 -->
-            <foreignObject
-              [attr.x]="0"
-              [attr.y]="0"
-              [attr.width]="node.dimension.width"
-              [attr.height]="node.dimension.height"
-            >
-              <div class="node-label">
-                <span class="ellipsis">{{node.label}}</span>
-              </div>
-            </foreignObject>
-          </ng-container>
-        </ng-template>
-      </ng-container>
+    <ng-template #nodeTemplate let-node>
+      <svg:g class="node">
+          <ng-container *ngTemplateOutlet="shape; context: {node: node}"></ng-container>
+          <foreignObject *ngIf="node.data.shape !== 'customNode'"
+            [attr.x]="0"
+            [attr.y]="0"
+            [attr.width]="node.dimension.width"
+            [attr.height]="node.dimension.height"
+          >
+          <div class="node-label">
+            <span class="ellipsis">{{node.label}}</span>
+          </div>
+        </foreignObject>
+      </svg:g>
+    </ng-template>
 
 
 <!-- Link 線 -->
-        <ng-template #linkTemplate let-link>
-          <svg:g class="edge">
-            <svg:path
-              class="line"
-              stroke-width="0.3"
-              [attr.d]="link.line"
-              marker-end="url(#arrow)">
-            </svg:path>
+    <ng-template #linkTemplate let-link>
+      <svg:g class="edge">
+        <svg:path
+          class="line"
+          stroke-width="0.3"
+          marker-start="url(#end-arrow)"
+          marker-end="url(#end-arrow)"
+        >
+        </svg:path>
 
-            <!-- <svg:text class="edge-label" text-anchor="middle">
-              <textPath
-                class="text-path"
-                [attr.href]="'#' + link.id"
-                [style.dominant-baseline]="link.dominantBaseline"
-                startOffset="50%"
-              >
-                {{link.label}}
-              </textPath>
-            </svg:text> -->
-          </svg:g>
-        </ng-template>
+        <!-- <svg:text class="edge-label" text-anchor="middle">
+          <textPath
+            class="text-path"
+            [attr.href]="'#' + link.id"
+            [style.dominant-baseline]="link.dominantBaseline"
+            startOffset="50%"
+          >
+            {{link.label}}
+          </textPath>
+        </svg:text> -->
+      </svg:g>
+    </ng-template>
 
-
-<!-- customer svg -->
-        <!-- <svg:clipPath id="sticky">
-          <svg:rect
-            width="75" height="75"
-          />
-        </svg:clipPath>
-          <svg:g class="sticky-bar" clip-path="url(#sticky)">
-            <svg:rect
-              fill="#FF6CC4" stroke="#C30D23" stroke-width="3" width="75" height="75"
-            />
-          </svg:g> -->
-
-      </ngx-graph>
+  </ngx-graph>
 
 </div>
-          <button mat-raised-button color="primary" (click)="centerHandler()">Center</button>
-          <button mat-raised-button color="primary" (click)="fitHandler()">zoom to Fit</button>
 
-<mat-menu #menu="matMenu">
-  <ng-template matMenuContent let-nodeId="nodeId">
-    <button mat-menu-item>
-      <span>Redial</span>
-    </button>
-    <button mat-menu-item disabled>
-      <span>Check voice mail</span>
-    </button>
-    <button mat-menu-item (click)="moveItem(nodeId)">
-      <span>Move</span>
-    </button>
-  </ng-template>
-</mat-menu>
+<ng-template #shape let-node="node">
+  <ng-container [ngSwitch]="node.data.shape">
+      <svg:circle *ngSwitchCase="'circle'"
+        [attr.r]="node.data.size || flowChartGraphConfig.nodeWidth/2"
+        [attr.cx]="node.dimension.width/2"
+        [attr.cy]="node.dimension.height/2"
+        [attr.stroke]="node.data.borderColor"
+        [attr.stroke-width]="node.data.borderWidth"
+        [attr.fill]="node.data.fillColor || node.data.color"
+      >
+      </svg:circle>
+
+      <svg:rect *ngSwitchCase="'rect'"
+        [attr.width]="node.dimension.width"
+        [attr.height]="node.dimension.height"
+        [attr.stroke]="node.data.borderColor"
+        [attr.stroke-width]="node.data.borderWidth"
+        [attr.fill]="node.data.fillColor || node.data.color"
+        [attr.rx]="node.data.borderRadious"
+        [attr.ry]="node.data.borderRadious"
+      >
+      </svg:rect>
+
+    <ng-container *ngSwitchCase="'customNode'">
+      <ng-container *ngTemplateOutlet="node.data.template; context: {node: node}"></ng-container>
+    </ng-container>
+
+  </ng-container>
+</ng-template>
+
+

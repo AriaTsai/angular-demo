@@ -1,5 +1,5 @@
 import { ClusterNode, Edge, Node } from '@swimlane/ngx-graph';
-import { Nodes } from './svg-tree-config-builder';
+import { BoSvgCircleNode, BoSvgLink, BoSvgNode } from './svg-tree-config-builder';
 
 
 // =====  tree  =====
@@ -86,7 +86,7 @@ export const edgeData: Edge[] = [
   },
 ];
 
-export const nodeData: Node[] = [
+export const nodeData: BoSvgNode[] = [
   {
     id: '1',
     label: '管理組管理組管理組管理管理組管理組管理組管理',
@@ -209,7 +209,7 @@ export const clustersData: ClusterNode[] = [
 
 
 // =====  sign  =====
-export const signLinksData: Edge[] = [
+export const signLinksData: BoSvgLink[] = [
   {
     id: 'aa',
     source: '11',
@@ -233,7 +233,7 @@ export const signLinksData: Edge[] = [
 ];
 
 
-export const signNodesData: Nodes[] = [
+export const signNodesData = [
   {
     id: '11',
     label: 'Step 1',

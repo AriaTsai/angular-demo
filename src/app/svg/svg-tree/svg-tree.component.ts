@@ -62,11 +62,9 @@ export class SvgTreeComponent implements OnInit {
     console.log(this.flowChartGraphConfig);
     this.useOrgTemplate = this.flowChartGraphConfig.useOrgTemplate;
 
+    this.createSticky(this.flowChartGraphConfig.clustersData);
+    this.setClusterLineTranslate(this.flowChartGraphConfig.nodeWidth, this.flowChartGraphConfig.settings);
 
-    if (this.flowChartGraphConfig.useOrgTemplate) {
-      this.createSticky(this.flowChartGraphConfig.clustersData);
-      this.setClusterLineTranslate(this.flowChartGraphConfig.nodeWidth, this.flowChartGraphConfig.settings);
-    }
   }
 
   onNodeSelect(event: any): void {
@@ -130,32 +128,6 @@ export class SvgTreeComponent implements OnInit {
         .attr('y', 22)
         .text(`${cluster.label}`);
     });
-
-    // const header = selection.select<SVGSVGElement, unknown>('.header')
-    // const content = selection.select<SVGSVGElement, unknown>('.content')
-
-
-    // const useZoom = zoom.zoom<SVGSVGElement, unknown>()
-    // .scaleExtent([1, 2]) // 縮放比例[最小值,最大值]
-    // .filter(s=> {
-    //   console.log(s)
-    //   return true;
-    // })
-    // .extent([[0, 0], [this.flowChartGraphConfig.viewPort[0], 50]])
-    // .on("zoom", e => {
-    //   console.log(e)
-    //   content.attr('transform', e.transform);
-    // });
-
-    // console.log(header);
-    // header
-    //   .call(useZoom)
-    //   .call(useZoom.transform, zoom.zoomIdentity)
-    //   .node()
-
-
-
-    // console.log(useZoom);
 
   }
 

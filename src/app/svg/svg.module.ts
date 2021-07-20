@@ -9,13 +9,15 @@ import { SvgComponent } from './svg.component';
 import { SvgTreeComponent } from './svg-tree/svg-tree.component';
 import { SharedCommonModule } from '../shared/shared-common/shared-common.module';
 import { SvgRectComponent } from './svg-tree/svg-rect/svg-rect.component';
+import { SvgCircleComponent } from './svg-tree/svg-circle/svg-circle.component';
 
 
 @NgModule({
   declarations: [
     SvgComponent,
     SvgTreeComponent,
-    SvgRectComponent
+    SvgRectComponent,
+    SvgCircleComponent
   ],
   imports: [
     CommonModule,

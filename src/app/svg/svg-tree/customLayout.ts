@@ -1,4 +1,4 @@
-import { Graph, Layout, Edge, ClusterNode } from '@swimlane/ngx-graph';
+import { Graph, Layout, Edge, ClusterNode, NodePosition, NodeDimension, Node } from '@swimlane/ngx-graph';
 import * as dagre from 'dagre';
 
 export enum Orientation {
@@ -80,13 +80,15 @@ export class CustomLayout implements Layout {
 
     const dagreToOutput = (node: any) => {
       const dagreNode = this.dagreGraph._nodes[node.id];
-      return Object.assign(Object.assign({}, node), { position: {
-              x: dagreNode.x,
-              y: dagreNode.y
-          }, dimension: {
-              width: dagreNode.width,
-              height: dagreNode.height
-          } });
+      return Object.assign(Object.assign({}, node), {
+        position: {
+          x: dagreNode.x,
+          y: dagreNode.y
+        }, dimension: {
+          width: dagreNode.width,
+          height: dagreNode.height
+        }
+      });
     };
     graph.clusters = (graph.clusters || []).map(dagreToOutput);
 

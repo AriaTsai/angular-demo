@@ -29,25 +29,123 @@
 
 
 <!-- tree -->
-      <app-svg-tree fxFill
+      <!-- <app-svg-tree fxFill
         [flowChartGraphConfig]="treeData"
         [targetNode]="target"
       >
-      </app-svg-tree>
-
-<!-- sign -->
-      <!-- <app-svg-tree fxFill
-        [flowChartGraphConfig]="signData"
-        >
       </app-svg-tree> -->
 
-
+<!-- sign -->
+      <app-svg-tree fxFill
+        [flowChartGraphConfig]="signData"
+        >
+      </app-svg-tree>
     </div>
   </div>
   </div>
 
-<ng-template #node>
-  <div class="circle-outside">
-    <div class="circle-inside"></div>
-  </div>
+
+
+
+<!-- 測試custom -->
+<ng-template #customTemplate let-node="node">
+  <svg:g>
+    <svg:rect
+    [attr.width]="100"
+    [attr.height]="100"
+    [attr.stroke]="'000000'"
+    [attr.stroke-width]="3"
+    [attr.fill]="'#ffa'"
+    [attr.rx]="3"
+    [attr.ry]="3"
+    >
+  </svg:rect>
+  <foreignObject
+    [attr.x]="0"
+    [attr.y]="0"
+    [attr.width]="node.dimension.width"
+    [attr.height]="node.dimension.height"
+  >
+    <div class="node-label">
+      <span class="ellipsis">{{node.label}}</span>
+    </div>
+  </foreignObject>
+  </svg:g>
 </ng-template>
+
+
+<!-- 組織圖 -->
+<ng-template #treeTemplate let-node="node">
+  <svg:g>
+    <svg:rect
+      class="rect"
+      [attr.width]="node.dimension.width"
+      [attr.height]="node.dimension.height"
+      [attr.stroke]="'rgba(0,0,0,0.6)'"
+      [attr.stroke-width]="0.3"
+      [attr.fill]="'#ffffff'"
+      [attr.rx]="5"
+      [attr.ry]="5"
+    />
+    <!-- number -->
+    <svg:circle
+      [attr.r]="17"
+      [attr.cx]="node.dimension.width / 6"
+      [attr.cy]="node.dimension.height / 2"
+      [attr.fill]="'#d8f3ff'"
+      [attr.stroke-width]="1"
+    />
+    <svg:text
+      [attr.x]="node.dimension.width / 6"
+      [attr.y]="node.dimension.height / 2"
+      [attr.fill]="'#0288d1'"
+      font-size="14"
+      text-anchor="middle"
+      alignment-baseline="middle"
+    >{{node.id}}
+    </svg:text>
+    <!-- text -->
+    <foreignObject
+      [attr.x]="node.dimension.width/3"
+      [attr.y]="0"
+      [attr.width]="84"
+      [attr.height]="node.dimension.height"
+    >
+      <div class="node-label">
+        <span class="ellipsis org">{{node.label}}</span>
+      </div>
+    </foreignObject>
+    <!-- icon -->
+    <foreignObject
+      class="icon-more"
+      [attr.x]="140"
+      [attr.y]="10"
+      width="30px"
+      height="30px"
+    >
+      <mat-icon>more_vert</mat-icon>
+    </foreignObject>
+  </svg:g>
+</ng-template>
+
+
+
+
+
+
+
+
+
+<mat-menu #menu="matMenu">
+  <ng-template matMenuContent let-nodeId="nodeId">
+    <button mat-menu-item>
+      <span>Redial</span>
+    </button>
+    <button mat-menu-item disabled>
+      <span>Check voice mail</span>
+    </button>
+    <button mat-menu-item (click)="moveItem(nodeId)">
+      <span>Move</span>
+    </button>
+  </ng-template>
+</mat-menu>

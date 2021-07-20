@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ClusterNode, DagreNodesOnlyLayout, Edge, Graph, Node } from '@swimlane/ngx-graph';
 import { Orientation } from './svg-tree/customLayout';
 import { clustersData, edgeData, nodeData, signClustersData, signLinksData, signNodesData } from './svg-tree/data';
-import { FlowChartGraphConfig, SvgTreeConfigBuilder, Nodes } from './svg-tree/svg-tree-config-builder';
+import { BoSvgCircleNode, BoSvgNode, FlowChartGraphConfig, NodeCircleStyle, NodeCustomStyle, SvgTreeConfigBuilder } from './svg-tree/svg-tree-config-builder';
 
 @Component({
   selector: 'app-svg',
@@ -11,63 +11,70 @@ import { FlowChartGraphConfig, SvgTreeConfigBuilder, Nodes } from './svg-tree/sv
 })
 export class SvgComponent implements OnInit {
 
-  // nodeData: Node[] = [];
-  // linksData: Edge[] = [];
-  // clustersData: ClusterNode[] = [];
   target: string;
   treeData = new FlowChartGraphConfig();
   signData = new FlowChartGraphConfig();
 
+  @ViewChild ('customTemplate', {static:true}) customTemplate :ElementRef<SVGAElement>;
+  @ViewChild ('treeTemplate', {static:true}) treeTemplate :ElementRef<any>;
+
   constructor() {
-    nodeData.forEach(item => {
-      item.data = {
-        customColor: '#ffffff',
-        borderWidth: '0.3',
-        borderColor: 'rgba(0,0,0,0.6)',
-        circleColor: '#d8f3ff',
-        icon: 'more_vert',
-      };
-    });
-
-    signNodesData.forEach(item => {
-      item.data = {
-        shape: 'circle',
-        color: '#a9a9a9',
-        width: 100,
-        height: 100,
-        borderColor: 'rgba(169, 169, 169, 0.5)',
-        borderWidth: 3,
-        borderRadious: 5
-      }
-    })
-
-
-
-    this.treeData = new SvgTreeConfigBuilder()
-      .setNodesData(nodeData).setLinksData(edgeData).setClustersData(clustersData)
-      .enableOrgGraph(true)
-      .setNodeShape('rect')
-      .setViewPort([1500, 800])
-      .build();
-
-    // this.treeData = new SvgTreeConfigBuilder()
-    //   .setNodesData(nodeData).setLinksData(edgeData).setClustersData(clustersData)
-    //   .setNodeSize(100, 100)
-    //   .setNodeShape('rect')
-    //   .build();
-
-    this.signData = new SvgTreeConfigBuilder()
-      .setNodesData(signNodesData).setLinksData(signLinksData).setClustersData(signClustersData)
-      .setOrientation(Orientation.TOP_TO_BOTTOM)
-      .setViewPort([1500, 800])
-      .setNodeSize(100, 100)
-      .build();
-
   }
 
   ngOnInit(): void {
     console.log('init');
+    this.createDepartMentTree();
+
+
+
+    this.createSignChart();
+  }
+
+  createDepartMentTree() {
+    nodeData.forEach(item => {
+      item.dimension = {width:175, height:50}
+    });
+
+
+    const customStyle = new NodeCustomStyle()
+    customStyle.template = this.treeTemplate
+
+    this.treeData = new SvgTreeConfigBuilder()
+      .setNodesData(nodeData).setLinksData(edgeData).setClustersData(clustersData)
+      .setNodeStyle(customStyle)
+      .setNodeSize(175, 50)
+      .enableOrgGraph(true)
+      .enableLinkArrow(false)
+      .setViewPort(1500, 800)
+      .setLinkArrowType('start')
+      .build();
   }
 
 
+
+  createSignChart() {
+    // style: circle
+    const circleStyle = new NodeCircleStyle()
+    circleStyle.fillColor = '#a9a9a9';
+    circleStyle.borderColor = 'rgba(169, 169, 169, 0.5)';
+    circleStyle.size = 40;
+    circleStyle.borderWidth = 20;
+
+    // style: 自訂
+    const customStyle = new NodeCustomStyle()
+    customStyle.template = this.customTemplate
+
+    this.signData = new SvgTreeConfigBuilder()
+      .setNodesData(signNodesData).setLinksData(signLinksData).setClustersData(signClustersData)
+      .setOrientation(Orientation.TOP_TO_BOTTOM)
+      .setViewPort(1500, 800)
+      .setNodeSize(150, 150)
+      .setNodeStyle(circleStyle)
+      .setLinkArrowType('start')
+      .build();
+  }
+
+  moveItem(id: string) {
+
+  }
 }
