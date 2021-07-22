@@ -1,0 +1,145 @@
+<ngx-graph
+    class="chart-container"
+    [layout]="layout"
+    [view]="svgTreeGraphConfig.viewPort"
+    [links]="svgTreeGraphConfig.linksData"
+    [nodes]="svgTreeGraphConfig.nodesData"
+    [clusters]="svgTreeGraphConfig.clustersData"
+    [nodeWidth]="svgTreeGraphConfig.nodeWidth"
+    [nodeHeight]="svgTreeGraphConfig.nodeHeight"
+    [curve]="curve"
+    (select)="onNodeSelect($event)"
+    [center$]="center$"
+    [zoomToFit$]="zoomToFit$"
+    [panToNode$]="panToNode$"
+    [draggingEnabled]="draggingEnabled"
+    [panningEnabled]="panningEnabled"
+    [panOnZoom]="panOnZoom"
+    [enableZoom]="enableZoom"
+    [showMiniMap]="showMiniMap"
+    [layoutSettings]='svgTreeGraphConfig.settings'
+    [panningAxis]="panningAxis">
+
+  <!-- defs 自定 -->
+    <ng-template #defsTemplate>
+        <!-- arrow -->
+        <ng-container *ngIf="svgTreeGraphConfig.useLinkArrow">
+            <svg:marker
+                id="start-arrow"
+                markerUnits="userSpaceOnUse"
+                viewBox="-5 0 10 10" refX="0" refY="10"
+                [attr.markerWidth]="svgTreeGraphConfig.arrowSize"
+                [attr.markerHeight]="svgTreeGraphConfig.arrowSize"
+                [attr.orient]="svgTreeGraphConfig.settings.orientation=='TB'?180:90">
+                <path d="M -5 0 L 5 0 L 0 10 z" />
+            </svg:marker>
+            <svg:marker
+                id="end-arrow"
+                markerUnits="userSpaceOnUse"
+                viewBox="-5 0 10 10" refX="0" refY="10"
+                [attr.markerWidth]="svgTreeGraphConfig.arrowSize"
+                [attr.markerHeight]="svgTreeGraphConfig.arrowSize"
+                [attr.orient]="svgTreeGraphConfig.settings.orientation=='TB'?0:270">
+                <path d="M -5 0 L 5 0 L 0 10 z" />
+            </svg:marker>
+        </ng-container>
+    </ng-template>
+
+    <!-- node 節點 -->
+    <ng-template #nodeTemplate let-node>
+        <svg:g class="node">
+            <ng-container *ngTemplateOutlet="shape; context: {node: node}"></ng-container>
+            <foreignObject *ngIf="node.data.shape!=='customNode'"
+                [attr.x]="0"
+                [attr.y]="0"
+                [attr.width]="node.dimension.width"
+                [attr.height]="node.dimension.height">
+                <div class="node-label">
+                    <span  class="ellipsis" [style.width.px]="node.data.r*2||node.width">{{node.label}}</span>
+                </div>
+            </foreignObject>
+        </svg:g>
+    </ng-template>
+
+
+    <!-- Link 線 -->
+    <ng-template #linkTemplate let-link>
+        <svg:g class="edge" [attr.stroke-width]="link.data.linkWidth" [ngSwitch]="link.data.arrowType">
+            <svg:path *ngSwitchCase="arrowType.both"
+                class="line"
+                marker-start="url(#start-arrow)"
+                marker-end="url(#end-arrow)">
+            </svg:path>
+            <svg:path *ngSwitchCase="arrowType.start"
+                class="line"
+                marker-start="url(#start-arrow)">
+            </svg:path>
+            <svg:path *ngSwitchCase="arrowType.end"
+                class="line"
+                marker-end="url(#end-arrow)">
+            </svg:path>
+        </svg:g>
+    </ng-template>
+
+
+    <!-- cluster 區塊 -->
+    <ng-template #clusterTemplate let-cluster>
+        <ng-container *ngIf="cluster.data.clustersType !== 'line'">
+        <svg:g>
+            <svg:rect
+            rx="5"
+            ry="5"
+            [attr.x]="5"
+            [attr.y]="10"
+            [attr.width]="cluster.dimension.width-15"
+            [attr.height]="cluster.dimension.height-15"
+            [attr.fill]="cluster.data.backgoundColor"
+            stroke="rgba(0, 0, 0, 0.2)"
+            stroke-width="0.7"
+            stroke-dasharray="2 2"
+            />
+        </svg:g>
+        </ng-container>
+
+        <ng-container *ngIf="cluster.data.clustersType == 'line'">
+        <svg:g class="cluster" [attr.transform]="clusterLineTranslate">
+            <svg:path
+            d="M0 0 V10000"
+            stroke-dasharray="3 3"
+            [attr.stroke]="cluster.data.strokeColor"
+            />
+        </svg:g>
+        </ng-container>
+        <ng-template *ngTemplateOutlet=cluster.data.template contex:cluster></ng-template>
+    </ng-template>
+
+
+</ngx-graph>
+
+
+<ng-template #shape let-node="node">
+    <ng-container [ngSwitch]="node.data.shape">
+        <svg:circle *ngSwitchCase="'circle'"
+            [attr.r]="node.data.r-(node.data.borderWidth/2)"
+            [attr.cx]="node.cx"
+            [attr.cy]="node.cy"
+            [attr.stroke]="node.data.borderColor"
+            [attr.stroke-width]="node.data.borderWidth"
+            [attr.fill]="node.data.fillColor||node.data.color">
+        </svg:circle>
+        <svg:rect *ngSwitchCase="'rect'"
+            [attr.width]="node.width"
+            [attr.height]="node.height"
+            [attr.x]="node.rectX"
+            [attr.y]="node.rectY"
+            [attr.stroke]="node.data.borderColor"
+            [attr.stroke-width]="node.data.borderWidth"
+            [attr.fill]="node.data.fillColor||node.data.color"
+            [attr.rx]="node.data.borderRadious"
+            [attr.ry]="node.data.borderRadious">
+        </svg:rect>
+        <ng-container *ngSwitchCase="'customNode'">
+            <ng-container *ngTemplateOutlet="node.data.template; context: {node: node}"></ng-container>
+        </ng-container>
+    </ng-container>
+</ng-template>

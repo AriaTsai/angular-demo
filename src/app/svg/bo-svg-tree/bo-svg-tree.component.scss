@@ -1,0 +1,27 @@
+:host::ng-deep .ngx-charts {
+    .panning-rect {
+      cursor: default;
+    }
+}
+
+// node文字置中
+.node-label {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+      .ellipsis {
+        // 限制多行
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        white-space: normal;
+        word-break: break-all;
+      }
+  }
+
+

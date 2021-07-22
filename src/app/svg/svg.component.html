@@ -129,13 +129,6 @@
 </ng-template>
 
 
-
-
-
-
-
-
-
 <mat-menu #menu="matMenu">
   <ng-template matMenuContent let-nodeId="nodeId">
     <button mat-menu-item>
@@ -149,3 +142,106 @@
     </button>
   </ng-template>
 </mat-menu>
+
+
+<!--
+
+<div class="container">
+  <bo-svg-tree [svgTreeGraphConfig]="signData"></bo-svg-tree>
+</div>
+
+
+
+
+<ng-template #customTemplate let-node="node">
+  <svg:g>
+    <svg:rect
+      [attr.width]="170"
+      [attr.height]="50"
+      [attr.stroke]="'rgba(0,0,0,0.6)'"
+      [attr.stroke-width]="0.3"
+      [attr.fill]="'#ffffff'"
+      [attr.rx]="5"
+      [attr.ry]="5"
+  >
+      </svg:rect>
+
+  </svg:g>
+</ng-template>
+
+
+<ng-template #treeTemplate let-node="node">
+  <svg:g >
+    <svg:rect
+      class="rect"
+      [attr.width]="175"
+      [attr.height]="50"
+      [attr.stroke]="'rgba(0,0,0,0.6)'"
+      [attr.stroke-width]="0.3"
+      [attr.fill]="'#ffffff'"
+      [attr.rx]="5"
+      [attr.ry]="5"
+    />
+    <svg:circle
+      [attr.r]="17"
+      [attr.cx]="175 / 6"
+      [attr.cy]="50 / 2"
+      [attr.fill]="'#d8f3ff'"
+      [attr.stroke-width]="1"
+    />
+    <svg:text
+      [attr.x]="175/ 6"
+      [attr.y]="50 / 2"
+      [attr.fill]="'#0288d1'"
+      font-size="14"
+      text-anchor="middle"
+      alignment-baseline="middle"
+    >{{node.id}}
+    </svg:text>
+
+    <foreignObject
+      [attr.x]="175/3"
+      [attr.y]="0"
+      [attr.width]="84"
+      [attr.height]="50"
+    >
+      <div class="node-label">
+        <span class="ellipsis org">{{node.label}}</span>
+      </div>
+    </foreignObject>
+
+    <foreignObject
+      class="icon-more"
+      [attr.x]="140"
+      [attr.y]="0"
+      [attr.width]="24"
+      [attr.height]="50"
+    >
+    <div class="node-label">
+        <button *ngIf="!isInEditMode"
+          class="node-icon"
+          mat-icon-button
+          [matMenuTriggerFor]="menu"
+          [matMenuTriggerData]="{node: node}">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+      </div>
+    </foreignObject>
+  </svg:g>
+</ng-template>
+
+
+<mat-menu #menu="matMenu" >
+  <ng-template matMenuContent let-node="node">
+    <button mat-menu-item>
+      <span>Redial</span>
+    </button>
+    <button mat-menu-item disabled>
+      <span>Check voice mail</span>
+    </button>
+    <button mat-menu-item (click)="move(node)">
+      <span>Move</span>
+    </button>
+  </ng-template>
+</mat-menu>
+ -->

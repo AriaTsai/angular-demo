@@ -60,6 +60,7 @@ export class SvgTreeComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(this.flowChartGraphConfig);
+
     this.useOrgTemplate = this.flowChartGraphConfig.useOrgTemplate;
 
     this.createSticky(this.flowChartGraphConfig.clustersData);

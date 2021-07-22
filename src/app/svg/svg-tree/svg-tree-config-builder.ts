@@ -1,6 +1,6 @@
 import { ElementRef, TemplateRef } from '@angular/core';
 import { Edge, Node, Layout, ClusterNode, PanningAxis, GraphComponent, Graph,
-  DagreClusterLayout, DagreSettings, Orientation, Alignment, NodeDimension, NodePosition } from '@swimlane/ngx-graph';
+  DagreClusterLayout, DagreSettings, Orientation, Alignment, NodeDimension, NodePosition, DagreNodesOnlySettings } from '@swimlane/ngx-graph';
 
 // Node Style
 interface NodeStyle {
@@ -93,7 +93,7 @@ export class FlowChartGraphConfig {
   nodeWidth: number;
   nodeHeight: number;
   nodeShape: 'rect' | 'circle';
-  settings: DagreSettings; // 設置
+  settings: DagreNodesOnlySettings; // 設置
   useLinkArrow: boolean;
   useOrgTemplate: boolean;
 
@@ -107,7 +107,7 @@ export class FlowChartGraphConfig {
     this.nodeShape = 'circle';
     this.settings = {
       orientation: Orientation.LEFT_TO_RIGHT,
-      marginX: 20,
+      marginX: 100,
       marginY: 20,
       edgePadding: 20,
       rankPadding: 50,

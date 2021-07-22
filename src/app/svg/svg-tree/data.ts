@@ -261,3 +261,9 @@ export const signClustersData: ClusterNode[] = [
   //   data: { clustersType: 'line', strokeColor: 'rgba(0,0,0,0.3)' }
   // },
 ];
+
+// GETAPPI.subscribe(
+//   res=>{
+//    this.nodeData= res.map(r=>new BoSvgNode)
+//   }
+// )

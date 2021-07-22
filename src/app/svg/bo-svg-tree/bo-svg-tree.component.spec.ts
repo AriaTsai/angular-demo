@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SvgCircleComponent } from './svg-circle.component';
+import { BoSvgTreeComponent } from './bo-svg-tree.component';
 
-describe('SvgCircleComponent', () => {
-  let component: SvgCircleComponent;
-  let fixture: ComponentFixture<SvgCircleComponent>;
+describe('BoSvgTreeComponent', () => {
+  let component: BoSvgTreeComponent;
+  let fixture: ComponentFixture<BoSvgTreeComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SvgCircleComponent ]
+      declarations: [ BoSvgTreeComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SvgCircleComponent);
+    fixture = TestBed.createComponent(BoSvgTreeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
